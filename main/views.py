@@ -4,12 +4,12 @@ from item.models import Category, Item
 
 # Create (your views here.
 def index(request):
-    item = Item.objects.filter(is_sold=False)[0:6]
+    items = Item.objects.filter(is_sold=False)[0:6]
     categories = Category.objects.all()
     
     return render(request, 'core/index.html',{
         'categories':categories,
-        'items':item,
+        'items':items,
     })
 
 def contact(request):
