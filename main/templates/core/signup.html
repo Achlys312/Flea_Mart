@@ -9,7 +9,27 @@
         <form method="post" action=".">
             {% csrf_token %}
 
-            {{ form.as_p }}
+            {{ form.non_field_errors }}
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Username</label>
+                {{form.username}}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Email</label>
+                {{form.email}}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Password</label>
+                {{form.password1}}
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Repeat Password</label>
+                {{form.password2}}
+            </div>
 
             <button class="py-4 px-4 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
         </form>
