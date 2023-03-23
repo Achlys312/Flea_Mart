@@ -27,10 +27,11 @@
                 <div class="mb-3 p-6 bg-red-100 rounded-xl">
                     {% for field in form %}
                         {{field.errors}}
-                    {% endblock %}
+                    {% endfor %}
 
                     {{ form.non_field_errors }}
                 </div>
+            {% endif %}
 
             <button class="py-4 px-4 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white">Submit</button>
         </form>
