@@ -19,5 +19,6 @@ def new(request):
     form = NewItemFormm()
 
     return render(request, 'item/form.html', {
-        'form': form
+        'form': form,
+        'title': 'New Item',
     })
