@@ -10,6 +10,12 @@ from .form import NewItemFormm, EditItemForm
 def items(request):
    query = request.GET.get('query', '')
    items = Item.objects.filter(is_sold=False)
+
+
+   if query:
+       items=items.filter(is_sold=False)
+
+
    return render(request, 'item/items.html', {
        'items':items,
        'query':query,
@@ -79,4 +85,7 @@ def delete(request, pk):
    item = get_object_or_404(Item, pk=pk, created_by=request.user)
    item.delete()
    return redirect('dashboard:index')
+
+
+
 
