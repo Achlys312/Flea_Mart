@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from .models import Item
 from .form import NewItemFormm, EditItemForm
@@ -13,7 +14,7 @@ def items(request):
 
 
    if query:
-       items=items.filter(is_sold=False)
+       items=items.filter(Q(name__icontains=query) | Q(description__icontains=query))
 
 
    return render(request, 'item/items.html', {
@@ -85,6 +86,7 @@ def delete(request, pk):
    item = get_object_or_404(Item, pk=pk, created_by=request.user)
    item.delete()
    return redirect('dashboard:index')
+
 
 
 
