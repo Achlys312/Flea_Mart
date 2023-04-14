@@ -3,7 +3,7 @@ from .models import Item
 
 INPUT_CLASSES = 'w-full py-4 px-6 rounded-xl border'
 
-class NewItemFormm(forms.ModelForm):
+class NewItemForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = ('category', 'name', 'description', 'price', 'image', )
