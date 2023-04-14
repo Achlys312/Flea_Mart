@@ -1,2 +1,2 @@
 # Flea Mart
-Selling and Buying Website for College 
+Selling and Buying Website for College Students 
