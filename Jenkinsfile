@@ -11,11 +11,11 @@ pipeline {
 
     stages {
         
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/<your-github-username>/<your-repository>.git'
-            }
-        }
+      //  stage('Checkout') {
+       //     steps {
+       //         git 'https://github.com/<your-github-username>/<your-repository>.git'
+       //     }
+       // }
 
         stage('Test') {
             steps {
