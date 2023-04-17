@@ -2,54 +2,50 @@ pipeline {
     agent any
 
     environment {
+        DOCKER_IMAGE_NAME = "my-django-app"
+        DOCKERFILE_PATH = "./Dockerfile"
+        DOCKER_REGISTRY = "docker.io"
+        DOCKER_REGISTRY_CREDENTIALS = "docker_cred"
+        DOCKER_USER="kartikdhoundiyal"
         PROMETHEUS_PORT = 9090
     }
 
-    
-  stages {
+    stages {
         
-        
-        //stage('Checkout') {
-        //    steps {
-          //      git 'https://github.com/Garv312/Flea_Mart.git'
-            //}
-        //}
-        
-
-        stage('Install dependencies') {
-            steps {
-                    // Install Python and pipenv
-                sh 'sudo apt-get update && apt-get install -y python3 python3-pip'
-                sh 'sudo pip3 install pipenv'
-                    
-                    // Install your Django project's dependencies
-                sh 'sudo pipenv install --dev'
-            }
-        }
+      //  stage('Checkout') {
+       //     steps {
+       //         git 'https://github.com/<your-github-username>/<your-repository>.git'
+       //     }
+       // }
 
         stage('Test') {
             steps {
+            // Build the Docker image
+                sh 'docker build -t my-django-app-test . -f Dockerfile.test'
         
-                sh 'pipenv run python manage.py test'
+            // Run the tests inside a Docker container
+                //sh 'docker run --rm my-django-app-test python manage.py test'
             }
         }
-        
+
         stage('Build') {
             steps {
-                /*sh 'pip install -r requirements.txt'*/
-                sh 'pipenv run python manage.py collectstatic'
-                sh 'pipenv run python manage.py compress'
+                sh 'docker build -f $DOCKERFILE_PATH -t $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME .'
+            }
+        }
+
+        stage('Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: "$DOCKER_REGISTRY_CREDENTIALS", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh "docker login $DOCKER_REGISTRY -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                    sh "docker push $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME"
+                }
             }
         }
         
         stage('Deploy') {
             steps {
-                sh 'docker build -t your-image-name .'
-                sh 'docker tag your-image-name your-registry/your-image-name'
-                withCredentials([usernamePassword(credentialsId: 'your-registry-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD your-registry'
-                    sh 'docker push your-registry/your-image-name'
-                }
+                sh "docker run -d --name $DOCKER_IMAGE_NAME -p 8000:8000 $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME"
             }
         }
         
@@ -59,7 +55,7 @@ pipeline {
                 sh 'pip install prometheus_client'
                 sh 'echo "from prometheus_flask_exporter import PrometheusMetrics\nmetrics = PrometheusMetrics(app=None)\nmetrics.start_http_server(5001)" >> app.py'
                 sh 'docker run -d -p 9090:9090 prom/prometheus'
-                sh 'docker run -d -p 5001:5001 your-registry/your-image-name python app.py'
+                sh 'docker run -d -p 5001:5001 --name my-django-app $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME python app.py'
             }
         }
     }
