@@ -13,6 +13,8 @@ COPY . /app
 # Set the working directory to /app
 WORKDIR /app
 
+RUN ls .
+
 # Run any migrations
 RUN python manage.py migrate
 
