@@ -19,11 +19,11 @@ pipeline {
         stage('Install dependencies') {
             steps {
                     // Install Python and pipenv
-                sh 'apt-get update && apt-get install -y python3 python3-pip'
-                sh 'pip3 install pipenv'
+                sh 'sudo apt-get update && apt-get install -y python3 python3-pip'
+                sh 'sudo pip3 install pipenv'
                     
                     // Install your Django project's dependencies
-                sh 'pipenv install --dev'
+                sh 'sudo pipenv install --dev'
             }
         }
 
