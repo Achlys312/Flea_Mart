@@ -17,4 +17,4 @@ WORKDIR /project/app
 EXPOSE 8000
 
 # Run the Django development server
-CMD ["python3", "manage.py", "runserver"]
+ENTRYPOINT ["python", "manage.py", "runserver"]
