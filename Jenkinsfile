@@ -56,6 +56,33 @@ pipeline {
                 sh 'echo "from prometheus_flask_exporter import PrometheusMetrics\nmetrics = PrometheusMetrics(app=None)\nmetrics.start_http_server(5001)" >> app.py'
                 sh 'docker run -d -p 9090:9090 prom/prometheus'
                 sh 'docker run -d -p 5001:5001 --name my-django-app $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME python app.py'
+                
+            }
+        }
+
+        stage('Monitor2') {
+            steps {
+                // Install Prometheus exporters
+                sh 'pip install prometheus-flask-exporter'
+                sh 'pip install prometheus_client'
+
+                // Start the Prometheus server
+                sh 'docker run -d --name prometheus -p 9090:9090 prom/prometheus'
+
+               // Start the Django app with Prometheus monitoring
+                sh 'docker run -d --name django-app -p 8000:8000 my-django-app'
+
+                // Start the Prometheus exporter for the Django app
+                sh 'python manage.py prometheus_export'
+
+                // Wait for the Django app to start up
+                sh 'sleep 10'
+
+                // Add the Django app to Prometheus configuration
+                sh 'echo "  - targets: [\'django-app:8000\']" >> /etc/prometheus/prometheus.yml'
+
+                // Restart Prometheus to pick up the new configuration
+                sh 'docker restart prometheus'
             }
         }
     }

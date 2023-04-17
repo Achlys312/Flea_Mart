@@ -16,5 +16,8 @@ WORKDIR /project/app
 # Run any migrations
 RUN python manage.py migrate
 
+# Expose port 8000 for the Django development server
+EXPOSE 8000
+
 # Set the entrypoint to run the tests
-ENTRYPOINT ["python", "manage.py", "test"]
+ENTRYPOINT ["python", "manage.py", "runserver"]
