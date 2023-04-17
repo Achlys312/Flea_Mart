@@ -8,13 +8,13 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy the Django project files
-COPY . /app
+COPY . /project/
 
 # Set the working directory to /app
-#WORKDIR /app/
+WORKDIR /project/app
 
 # Expose port 8000 for the Django development server
 EXPOSE 8000
 
 # Run the Django development server
-CMD ["pipenv", "run","python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

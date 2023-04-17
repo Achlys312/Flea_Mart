@@ -8,10 +8,10 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy the Django project files
-COPY . /app/
+COPY . /project/
 
 # Set the working directory to /app
-WORKDIR /app/app
+WORKDIR /project/app
 
 # Run any migrations
 RUN python manage.py migrate
