@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE_NAME = "my-django-app"
+        DOCKER_IMAGE_NAME = "kartikdhoundiyal/my-django-app"
         DOCKERFILE_PATH = "./Dockerfile"
         DOCKER_REGISTRY = "docker.io"
         DOCKER_REGISTRY_CREDENTIALS = "docker_cred"
