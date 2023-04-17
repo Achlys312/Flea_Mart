@@ -60,7 +60,7 @@ pipeline {
             }
         }
 
-        stage('Monitor') {
+        stage('Monitor2') {
             steps {
                 // Install Prometheus exporters
                 sh 'pip install prometheus-flask-exporter'
