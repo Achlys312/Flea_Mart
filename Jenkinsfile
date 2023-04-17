@@ -6,6 +6,7 @@ pipeline {
         DOCKERFILE_PATH = "./Dockerfile"
         DOCKER_REGISTRY = "docker.io"
         DOCKER_REGISTRY_CREDENTIALS = "docker_cred"
+        DOCKER_USER="kartikdhoundiyal"
         PROMETHEUS_PORT = 9090
     }
 
@@ -37,7 +38,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: "$DOCKER_REGISTRY_CREDENTIALS", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh "docker login $DOCKER_REGISTRY -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                    sh "docker push $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME"
+                    sh "docker push $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME"
                 }
             }
         }
