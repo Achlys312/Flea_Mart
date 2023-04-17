@@ -11,7 +11,7 @@ RUN pip install -r requirements.txt
 COPY . /app
 
 # Set the working directory to /app
-WORKDIR /app
+WORKDIR /app/
 
 # Expose port 8000 for the Django development server
 EXPOSE 8000
