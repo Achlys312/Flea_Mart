@@ -8,22 +8,24 @@ pipeline {
     
   stages {
         
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/Garv312/Flea_Mart.git'
-            }
-        }
+        
+        //stage('Checkout') {
+        //    steps {
+          //      git 'https://github.com/Garv312/Flea_Mart.git'
+            //}
+        //}
+        
 
-        stage('Install dependencies') {
-            steps {
-                // Install Python and pipenv
-                sh 'apt-get update && apt-get install -y python3 python3-pip'
-                sh 'pip3 install pipenv'
-                
-                // Install your Django project's dependencies
-                sh 'pipenv install --dev'
+            stage('Install dependencies') {
+                steps {
+                    // Install Python and pipenv
+                    sh 'apt-get update && apt-get install -y python3 python3-pip'
+                    sh 'pip3 install pipenv'
+                    
+                    // Install your Django project's dependencies
+                    sh 'pipenv install --dev'
+                }
             }
-        }
 
         stage('Test') {
             steps {
