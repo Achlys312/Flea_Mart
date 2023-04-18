@@ -20,6 +20,6 @@ RUN python manage.py migrate
 EXPOSE 8000
 
 # Set the entrypoint to run the tests
-ENTRYPOINT python manage.py runserver 
+ENTRYPOINT python manage.py runserver 127.0.0.1:8000
 
 CMD python test.py

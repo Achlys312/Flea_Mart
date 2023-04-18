@@ -9,7 +9,7 @@ driver = webdriver.Chrome()
 # Visit the home page of the Django app
 driver.get("http://127.0.0.1:8000/")
 
-uzu = "kadbubffyf12"
+uzu = "knh12"
 
 
 # time.sleep(2)
