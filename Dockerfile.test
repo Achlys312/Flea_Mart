@@ -1,19 +1,17 @@
 # Use the official Python image as the base image
 FROM ubuntu:22.04
 
-#upgrading
-RUN apt-get update 
+#upgrading and Installing pip 
+RUN apt-get update \
+    apt-get install -y python3-pip && \
+    pip3 install --upgrade pip
 
 
 # Copy the requirements file into the container
 COPY requirements.txt .
 
-# Installing pip 
-RUN apt-get install -y python3-pip && \
-    pip3 install --upgrade pip
-
 # Install the dependencies
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 # Copy the Django project files
 COPY . /project/
