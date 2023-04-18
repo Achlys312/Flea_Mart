@@ -4,7 +4,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
 # Create a new browser window
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver")
 
 # Visit the home page of the Django app
 driver.get("http://localhost:8000/")
