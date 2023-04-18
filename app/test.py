@@ -7,7 +7,7 @@ from selenium.webdriver.common.by import By
 driver = webdriver.Chrome()
 
 # Visit the home page of the Django app
-driver.get("http://127.0.0.1:8000/")
+driver.get("http://localhost:8000/")
 
 uzu = "knh12"
 

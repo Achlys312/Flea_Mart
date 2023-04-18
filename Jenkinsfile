@@ -24,7 +24,7 @@ pipeline {
                 sh 'docker build -t my-django-app-test . -f Dockerfile.test'
         
             // Run the tests inside a Docker container
-                sh 'docker run --rm my-django-app-test -p 8000:8000'
+                sh 'docker run --rm -p 8000:8000 my-django-app-test '
             }
         }
 
