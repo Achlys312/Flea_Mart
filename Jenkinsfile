@@ -14,7 +14,7 @@ pipeline {
         
       //  stage('Checkout') {
        //     steps {
-       //         git 'https://github.com/<your-github-username>/<your-repository>.git'
+       //         git 'https://github.com/Kartik-Dhoundiyal/Flea_Mart.git'
        //     }
        // }
 
@@ -24,7 +24,7 @@ pipeline {
                 sh 'docker build -t my-django-app-test . -f Dockerfile.test'
         
             // Run the tests inside a Docker container
-                //sh 'docker run --rm my-django-app-test python manage.py'
+                sh 'docker run --rm my-django-app-test'
             }
         }
 
