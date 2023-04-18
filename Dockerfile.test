@@ -1,14 +1,17 @@
 # Use the official Python image as the base image
 FROM ubuntu:22.04
 
+#upgrading
+#RUN apt-get update 
+
+
 # Copy the requirements file into the container
 COPY requirements.txt .
 
 # Installing pip and upgrading  
-RUN apt-get update && \
-    apt-get install -y python3-pip && \
+RUN apt-get install -y python3-pip && \
     pip3 install --upgrade pip
-    
+
 # Install the dependencies
 RUN pip install -r requirements.txt
 
@@ -25,6 +28,6 @@ RUN python manage.py migrate
 EXPOSE 8000
 
 # Set the entrypoint to run the tests
-ENTRYPOINT python manage.py runserver 127.0.0.1:8000
+ENTRYPOINT python3 manage.py runserver 127.0.0.1:8000
 
-CMD python test.py
+CMD python3 test.py

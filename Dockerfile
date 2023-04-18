@@ -1,12 +1,15 @@
 # Use the official Python image as the base image
 FROM ubuntu:22.04
 
+#upgrading
+#RUN apt-get update 
+
+
 # Copy the requirements file into the container
 COPY requirements.txt .
 
-# Installing pip and upgrading  
-RUN apt-get update && \
-    apt-get install -y python3-pip && \
+# Installing pip 
+RUN apt-get install -y python3-pip && \
     pip3 install --upgrade pip
 
 # Install the dependencies
@@ -22,4 +25,4 @@ WORKDIR /project/app
 EXPOSE 8000
 
 # Run the Django development server
-ENTRYPOINT python manage.py runserver 0.0.0.0:8000
+ENTRYPOINT python3 manage.py runserver 0.0.0.0:8000
