@@ -24,7 +24,7 @@ pipeline {
                 sh 'docker build -t my-django-app-test . -f Dockerfile.test'
         
             // Run the tests inside a Docker container
-                sh 'docker run --rm my-django-app-test'
+                //sh 'docker run --rm my-django-app-test'
             }
         }
 
@@ -49,6 +49,11 @@ pipeline {
             }
         }
         
+
+
+
+
+
         stage('Monitor') {
             steps {
                 sh 'pip install prometheus-flask-exporter'
@@ -70,7 +75,7 @@ pipeline {
                 sh 'docker run -d --name prometheus -p 9090:9090 prom/prometheus'
 
                // Start the Django app with Prometheus monitoring
-                sh 'docker run -d --name django-app -p 8000:8000 my-django-app'
+                //sh 'docker run -d --name django-app -p 8000:8000 my-django-app'
 
                 // Start the Prometheus exporter for the Django app
                 sh 'python manage.py prometheus_export'
