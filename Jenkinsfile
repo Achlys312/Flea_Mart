@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE_NAME = "my-django-app"
+        $DOCKER_USER = "kartikdhoundiyal"
         DOCKERFILE_PATH = "./Dockerfile"
         DOCKER_REGISTRY = "docker.io"
         DOCKER_REGISTRY_CREDENTIALS = "docker_cred"
@@ -29,7 +30,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'docker build -f $DOCKERFILE_PATH -t $DOCKER_REGISTRY/$DOCKER_USERNAME/$DOCKER_IMAGE_NAME .'
+                sh 'docker build -f $DOCKERFILE_PATH -t $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME .'
             }
         }
 
@@ -37,7 +38,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: "$DOCKER_REGISTRY_CREDENTIALS", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh "docker login $DOCKER_REGISTRY -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                    sh "docker push $DOCKER_REGISTRY/$DOCKER_USERNAME/$DOCKER_IMAGE_NAME"
+                    sh "docker push $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME"
                 }
             }
         }
