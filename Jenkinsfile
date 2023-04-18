@@ -48,7 +48,8 @@ pipeline {
                 sh "docker run -d --name $DOCKER_IMAGE_NAME -p 8000:8000 $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME"
             }
         }
-        
+    }
+}
 
 
 
@@ -90,5 +91,3 @@ pipeline {
 //                 sh 'docker restart prometheus'
 //             }
 //         }
-//     }
-// }
