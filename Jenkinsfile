@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE_NAME = "my-django-app"
-        $DOCKER_USER = "kartikdhoundiyal"
+        DOCKER_USER = "kartikdhoundiyal"
         DOCKERFILE_PATH = "./Dockerfile"
         DOCKER_REGISTRY = "docker.io"
         DOCKER_REGISTRY_CREDENTIALS = "docker_cred"
