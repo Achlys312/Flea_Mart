@@ -6,7 +6,6 @@ pipeline {
         DOCKERFILE_PATH = "./Dockerfile"
         DOCKER_REGISTRY = "docker.io"
         DOCKER_REGISTRY_CREDENTIALS = "docker_cred"
-        DOCKER_USER="kartikdhoundiyal"
         PROMETHEUS_PORT = 9090
     }
 
