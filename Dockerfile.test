@@ -21,4 +21,4 @@ EXPOSE 8000
 
 # Set the entrypoint to run the tests
 ENTRYPOINT ["python3", "manage.py", "runserver"]
-CMD ["python", "app.py"]
+CMD ["python3", "app.py"]
