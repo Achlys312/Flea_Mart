@@ -8,9 +8,9 @@ RUN apt-get update && \
 
 RUN apt-get update 
 
-Run apt-get install wget  
+RUN apt-get install wget  
 
-RUN apt-get update && \
+RUN apt-get update 
 
 RUN apt-get install unzip 
 
