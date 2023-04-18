@@ -29,7 +29,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'docker build -f $DOCKERFILE_PATH -t $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME .'
+                sh 'docker build -f $DOCKERFILE_PATH -t $DOCKER_REGISTRY/$DOCKER_USERNAME/$DOCKER_IMAGE_NAME .'
             }
         }
 
