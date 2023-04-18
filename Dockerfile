@@ -2,7 +2,7 @@
 FROM ubuntu:22.04
 
 #upgrading
-#RUN apt-get update 
+RUN apt-get update 
 
 
 # Copy the requirements file into the container
