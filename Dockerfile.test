@@ -6,11 +6,13 @@ RUN apt-get update && \
     apt-get install -y python3-pip && \
     pip3 install --upgrade pip
 
-RUN apt-get update && \
-    apt-get install wget  
+RUN apt-get update 
+
+Run apt-get install wget  
 
 RUN apt-get update && \
-    apt-get install unzip 
+
+RUN apt-get install unzip 
 
 RUN wget -q https://chromedriver.storage.googleapis.com/112.0.5615.49/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip && \
