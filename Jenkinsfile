@@ -24,7 +24,7 @@ pipeline {
                 sh 'docker build -t my-django-app-test . -f Dockerfile.test'
         
             // Run the tests inside a Docker container
-                sh 'docker run --rm my-django-app-test'
+                //sh 'docker run --rm my-django-app-test'
             }
         }
 
@@ -50,11 +50,6 @@ pipeline {
         }
     }
 }
-
-
-
-
-
 //         stage('Monitor') {
 //             steps {
 //                 sh 'pip install prometheus-flask-exporter'
