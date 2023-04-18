@@ -12,11 +12,11 @@ pipeline {
 
     stages {
         
-       stage('Checkout') {
-           steps {
-               git 'https://github.com/Kartik-Dhoundiyal/Flea_Mart.git'
-           }
-       }
+    //    stage('Checkout') {
+    //        steps {
+    //            git 'https://github.com/Kartik-Dhoundiyal/Flea_Mart.git'
+    //        }
+    //    }
 
         stage('Test') {
             steps {
