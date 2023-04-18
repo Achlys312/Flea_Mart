@@ -1,5 +1,5 @@
 # Use the official Python image as the base image
-FROM python:3.9-slim-buster
+FROM ubuntu:22.04
 
 # Copy the requirements file into the container
 COPY requirements.txt .
