@@ -20,7 +20,7 @@ COPY . /project/
 WORKDIR /project/app
 
 # Run any migrations
-RUN python manage.py migrate
+RUN python3 manage.py migrate
 
 # Expose port 8000 for the Django development server
 EXPOSE 8000
