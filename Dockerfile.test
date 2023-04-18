@@ -1,4 +1,4 @@
-# Use the official Python image as the base image
+# Using the base image
 FROM ubuntu:22.04
 
 #upgrading and Installing pip 
