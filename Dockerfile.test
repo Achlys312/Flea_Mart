@@ -6,35 +6,35 @@ RUN apt-get update && \
     apt-get install -y python3-pip && \
     pip3 install --upgrade pip
 
-# Install Chrome
-RUN apt install curl -y
-RUN apt install unzip -y
-RUN apt install dpkg -y
-RUN apt-get update 
-RUN apt upgrade -y
-RUN curl -LO "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-RUN ar x google-chrome-stable_current_amd64.deb
+# # Install Chrome
+# RUN apt install curl -y
+# RUN apt install unzip -y
+# RUN apt install dpkg -y
+# RUN apt-get update 
+# RUN apt upgrade -y
+# RUN curl -LO "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+# RUN ar x google-chrome-stable_current_amd64.deb
 
-RUN tar -xf control.tar.xz
+# RUN tar -xf control.tar.xz
 
-RUN apt-get -f install -y
+# RUN apt-get -f install -y
 
-RUN tar -xf data.tar.xz -C /
+# RUN tar -xf data.tar.xz -C /
 
 # RUN sudo curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 # RUN sudo dpkg -i google-chrome-stable_cuurent_amd64.deb
 #RUN echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list
 #RUN apt-get update && apt-get install -y google-chrome-stable
 
-# Install ChromeDriver
-ARG CHROME_DRIVER_VERSION=latest
-RUN if [ ${CHROME_DRIVER_VERSION} = "latest" ]; then \
-      CHROME_DRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE); \
-    fi && \
-    curl -sSL -O https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip && \
-    unzip chromedriver_linux64.zip && \
-    mv chromedriver /usr/local/bin && \
-    rm chromedriver_linux64.zip 
+# # Install ChromeDriver
+# ARG CHROME_DRIVER_VERSION=latest
+# RUN if [ ${CHROME_DRIVER_VERSION} = "latest" ]; then \
+#       CHROME_DRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE); \
+#     fi && \
+#     curl -sSL -O https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip && \
+#     unzip chromedriver_linux64.zip && \
+#     mv chromedriver /usr/local/bin && \
+#     rm chromedriver_linux64.zip 
 
 # RUN apt-get update && \
 #     apt-get install -y curl unzip && \
@@ -51,7 +51,7 @@ COPY . .
 RUN pip3 install -r requirements.txt
 
 # Run any migrations
-# RUN python3 app/manage.py migrate
+RUN python3 app/manage.py migrate
 
 # Expose port 8000 for the Django development server
 EXPOSE 8000
