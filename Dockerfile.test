@@ -12,7 +12,7 @@ RUN apt install unzip -y
 RUN apt install dpkg -y
 RUN apt-get update 
 RUN apt upgrade -y
-RUN RUN curl -LO "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+RUN curl -LO "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 RUN dpkg -i google-chrome-stable_current_amd64.deb
 
 RUN apt-get -f install -y
