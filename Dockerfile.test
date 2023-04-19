@@ -50,9 +50,9 @@ COPY . .
 # Install the dependencies
 RUN pip3 install -r requirements.txt
 
-RUN python3 app/manage.py makemigrarions
-# Run any migrations
-RUN python3 app/manage.py migrate
+# RUN python3 app/manage.py makemigrarions
+# # Run any migrations
+# RUN python3 app/manage.py migrate
 
 # Expose port 8000 for the Django development server
 EXPOSE 8000
