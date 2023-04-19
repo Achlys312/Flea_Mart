@@ -56,7 +56,9 @@ RUN pip3 install -r requirements.txt
 # Expose port 8000 for the Django development server
 EXPOSE 8000
 
-# Set the entrypoint to run the tests
-RUN chmod +x test_entrypoint.sh
+# # Set the entrypoint to run the tests
+# RUN chmod +x test_entrypoint.sh
 
-ENTRYPOINT ["./test_entrypoint.sh"]
+# ENTRYPOINT ["./test_entrypoint.sh"]
+
+ENTRYPOINT python3 app/manage.py runserver 
