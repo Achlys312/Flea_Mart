@@ -18,15 +18,15 @@ pipeline {
     //        }
     //    }
 
-        // stage('Test') {
-        //     steps {
-        //     // Build the Docker image
-        //         sh 'docker build -t my-django-app-test . -f Dockerfile.test'
+         stage('Test') {
+             steps {
+             // Build the Docker image
+                 sh 'docker build -t my-django-app-test . -f Dockerfile.test'
         
-        //     // Run the tests inside a Docker container
-        //         sh 'docker run --rm -p 8000:8000 my-django-app-test '
-        //     }
-        // }
+             // Run the tests inside a Docker container
+                 sh 'docker run --rm -p 8000:8000 my-django-app-test '
+             }
+         }
 
         stage('Build') {
             steps {
