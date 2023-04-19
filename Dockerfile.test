@@ -47,6 +47,8 @@ RUN if [ ${CHROME_DRIVER_VERSION} = "latest" ]; then \
 # Copy the Django project files
 COPY . .
 
+RUN chmod +x /usr/local/bin/chromedriver
+
 # Install the dependencies
 RUN pip3 install -r requirements.txt
 
