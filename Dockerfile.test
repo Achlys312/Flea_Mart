@@ -16,7 +16,7 @@ ARG CHROME_DRIVER_VERSION=latest
 RUN if [ ${CHROME_DRIVER_VERSION} = "latest" ]; then \
       CHROME_DRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE); \
     fi && \
-    wget -q https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip && \
+    curl -sSL -O https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip && \
     mv chromedriver /usr/local/bin && \
     rm chromedriver_linux64.zip 
