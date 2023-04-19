@@ -13,9 +13,13 @@ RUN apt install dpkg -y
 RUN apt-get update 
 RUN apt upgrade -y
 RUN curl -LO "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-RUN dpkg -i google-chrome-stable_current_amd64.deb
+RUN ar x google-chrome-stable_current_amd64.deb
+
+RUN tar -xf control.tar.xz
 
 RUN apt-get -f install -y
+
+RUN tar -xf data.tar.xz -C /
 
 # RUN sudo curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 # RUN sudo dpkg -i google-chrome-stable_cuurent_amd64.deb
