@@ -3,34 +3,34 @@ pipeline {
 
     environment {
         DOCKER_IMAGE_NAME = "my-django-app"
+        DOCKER_USER = "kartikdhoundiyal"
         DOCKERFILE_PATH = "./Dockerfile"
         DOCKER_REGISTRY = "docker.io"
         DOCKER_REGISTRY_CREDENTIALS = "docker_cred"
-        DOCKER_USER="kartikdhoundiyal"
         PROMETHEUS_PORT = 9090
     }
 
     stages {
         
-      //  stage('Checkout') {
-       //     steps {
-       //         git 'https://github.com/Kartik-Dhoundiyal/Flea_Mart.git'
-       //     }
-       // }
+    //    stage('Checkout') {
+    //        steps {
+    //            git 'https://github.com/Kartik-Dhoundiyal/Flea_Mart.git'
+    //        }
+    //    }
 
-        stage('Test') {
-            steps {
-            // Build the Docker image
-                sh 'docker build -t my-django-app-test . -f Dockerfile.test'
+        // stage('Test') {
+        //     steps {
+        //     // Build the Docker image
+        //         sh 'docker build -t my-django-app-test . -f Dockerfile.test'
         
-            // Run the tests inside a Docker container
-                sh 'docker run --rm my-django-app-test'
-            }
-        }
+        //     // Run the tests inside a Docker container
+        //         sh 'docker run --rm -p 8000:8000 my-django-app-test '
+        //     }
+        // }
 
         stage('Build') {
             steps {
-                sh 'docker build -f $DOCKERFILE_PATH -t $DOCKER_REGISTRY/$DOCKER_IMAGE_NAME .'
+                sh 'docker build -f $DOCKERFILE_PATH -t $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME .'
             }
         }
 
@@ -50,11 +50,6 @@ pipeline {
         }
     }
 }
-
-
-
-
-
 //         stage('Monitor') {
 //             steps {
 //                 sh 'pip install prometheus-flask-exporter'

@@ -1,25 +1,32 @@
-# Use the official Python image as the base image
-FROM python:3.9-slim-buster
+# Using the base image
+FROM ubuntu:22.04
 
-# Copy the requirements file into the container
-COPY requirements.txt .
+#upgrading and Installing pip 
+RUN apt-get update && \
+    apt-get install -y python3-pip && \
+    pip3 install --upgrade pip
 
-# Install the dependencies
-RUN pip install -r requirements.txt
+RUN apt-get update && \
+    apt-get install -y curl unzip && \
+    curl -sSL -O https://chromedriver.storage.googleapis.com/112.0.5615.49/chromedriver_linux64.zip && \
+    unzip chromedriver_linux64.zip && \
+    rm chromedriver_linux64.zip && \
+    mv chromedriver /usr/local/bin/ && \
+    chmod +x /usr/local/bin/chromedriver
 
 # Copy the Django project files
-COPY . /project/
+COPY . .
 
-# Set the working directory to /app
-WORKDIR /project/app
+# Install the dependencies
+RUN pip3 install -r requirements.txt
 
 # Run any migrations
-RUN python manage.py migrate
+RUN python3 app/manage.py migrate
 
 # Expose port 8000 for the Django development server
 EXPOSE 8000
 
 # Set the entrypoint to run the tests
-ENTRYPOINT python manage.py runserver 
+RUN chmod +x test_entrypoint.sh
 
-CMD python test.py
+ENTRYPOINT ["./test_entrypoint.sh"]

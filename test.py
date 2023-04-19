@@ -4,12 +4,12 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 
 # Create a new browser window
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver")
 
 # Visit the home page of the Django app
-driver.get("http://127.0.0.1:8000/")
+driver.get("http://localhost:8000/")
 
-uzu = "kadbubffyf12"
+uzu = "knh12"
 
 
 # time.sleep(2)
