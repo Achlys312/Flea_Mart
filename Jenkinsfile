@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE_NAME = "flea_mart-app"
-        DOCKER_USER = "kartikdhoundiyal"
+        DOCKER_USER = "ChetanGarg"
         DOCKERFILE_PATH = "./Dockerfile"
         DOCKER_REGISTRY = "docker.io"
         DOCKER_REGISTRY_CREDENTIALS = "docker_cred"
@@ -17,41 +17,28 @@ pipeline {
     //            git 'https://github.com/ChetanGarg6842/Flea_Mart.git'
     //        }
     //    }
-      stage('SonarQube analysis') {
-        steps {
-            withSonarQubeEnv('SonarQube') {
-            sh 'sonar-scanner'
-      // start the SonarQube container
-      sh 'docker run --rm -it -p sonarqube -p 9001:9001 -p 9092:9092 sonarqube'
-      
-      // wait for SonarQube to start up
-      sh 'sleep 30'
-      
-      // run the SonarQube scanner for your project
-      sh 'mvn sonar:sonar'
-      
-      // stop the SonarQube container
-      sh 'docker stop sonarqube'
+      stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh 'sonar-scanner'
+                }
+            }
+        }
     }
-  }
-}
+    
+    post {
+        always {
+            deleteDir()
+        }
+        
+        success {
+            echo 'Build successful!'
+        }
+        
+        failure {
+            echo 'Build failed!'
+        }
     }
-
-
-  post {
-    always {
-      // clean up workspace
-      cleanWs()
-    }
-    success {
-      // print success message
-      echo 'SonarQube analysis succeeded!'
-    }
-    failure {
-      // print failure message
-      echo 'SonarQube analysis failed!'
-    }
-  }
 
 }  
       //  stage('Test') {
