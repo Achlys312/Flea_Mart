@@ -17,13 +17,7 @@ pipeline {
     //            git 'https://github.com/Kartik-Dhoundiyal/Flea_Mart.git'
     //        }
     //    }
-        stage('SonarQube analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh './gradlew sonarqube'
-                }
-            }
-        }
+        
 
         stage('Test') {
             steps {
