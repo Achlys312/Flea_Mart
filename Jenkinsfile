@@ -21,6 +21,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh './gradlew sonarqube'
+                    sh docker run -d --name sonarqube -p 9001:9001 sonarqube
                 }
             }
         }
