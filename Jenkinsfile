@@ -35,6 +35,7 @@ pipeline {
     }
   }
 }
+    }
 
 
   post {
@@ -51,9 +52,8 @@ pipeline {
       echo 'SonarQube analysis failed!'
     }
   }
-}
-}
-        
+
+}  
       //  stage('Test') {
         //    steps {
              // Build the Docker image
