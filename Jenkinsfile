@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE_NAME = "my-django-app"
+        DOCKER_IMAGE_NAME = "flea_mart-app"
         DOCKER_USER = "kartikdhoundiyal"
         DOCKERFILE_PATH = "./Dockerfile"
         DOCKER_REGISTRY = "docker.io"
@@ -38,14 +38,14 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: "$DOCKER_REGISTRY_CREDENTIALS", usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh "docker login $DOCKER_REGISTRY -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                    sh "docker push $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME"
+                    sh "docker push $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME:latest"
                 }
             }
         }
         
         stage('Deploy') {
             steps {
-                sh "docker pull kartikdhoundiyal/my-django-app:latest"
+                sh "docker pull $DOCKER_USER/$DOCKER_IMAGE_NAME:latest""
                 sh "docker run -d --name $DOCKER_IMAGE_NAME -p 8000:8000 $DOCKER_IMAGE_NAME"
             }
         }
