@@ -17,10 +17,34 @@ pipeline {
     //            git 'https://github.com/ChetanGarg6842/Flea_Mart.git'
     //        }
     //    }
-      stage('SonarQube Analysis') {
+    //   stage('SonarQube Analysis') {
+    //         steps {
+    //             withSonarQubeEnv('SonarQube', unstable: true) {
+    //                 sh 'sonar-scanner -Dsonar.projectKey=FleaMart'
+    //             }
+    //         }
+    //     }
+    // }
+    
+    // post {
+    //     always {
+    //         deleteDir()
+    //     }
+        
+    //     success {
+    //         echo 'Build successful!'
+    //     }
+        
+    //     failure {
+    //         echo 'Build failed!'
+    //     }
+    // }
+    
+
+     stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube', unstable: true) {
-                    sh 'sonar-scanner -Dsonar.projectKey=FleaMart'
+                    sh 'sonar-scannersh -Dsonar.projectKey=FleaMart'
                 }
             }
         }
@@ -39,8 +63,20 @@ pipeline {
             echo 'Build failed!'
         }
     }
-
-}  
+    
+    environment {
+        SONARQUBE_URL = 'http://sonarqube.example.com:9000'
+        SONARQUBE_LOGIN = credentials('sonarqube-login')
+    }
+    
+    options {
+        timeout(time: 1, unit: 'HOURS')
+    }
+    
+    parameters {
+        string(name: 'SONAR_PROJECT_KEY', defaultValue: 'FleaMart', description: 'The project key for the SonarQube analysis.')
+    }
+}
       //  stage('Test') {
         //    steps {
              // Build the Docker image
