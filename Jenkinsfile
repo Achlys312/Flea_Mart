@@ -17,16 +17,23 @@ pipeline {
     //            git 'https://github.com/Kartik-Dhoundiyal/Flea_Mart.git'
     //        }
     //    }
-
-         stage('Test') {
-             steps {
+        stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh './gradlew sonarqube'
+                }
+            }
+        }
+        
+        stage('Test') {
+            steps {
              // Build the Docker image
                 sh 'docker build -t my-django-app-test . -f Dockerfile.test'
         
              // Run the tests inside a Docker container.
                 //sh 'docker run --rm -p 8000:8000 my-django-app-test '
-             }
-         }
+            }
+        }
 
         stage('Build') {
             steps {
