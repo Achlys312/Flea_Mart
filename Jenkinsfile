@@ -14,12 +14,13 @@ pipeline {
         
     //    stage('Checkout') {
     //        steps {
-    //            git 'https://github.com/Kartik-Dhoundiyal/Flea_Mart.git'
+    //            git 'https://github.com/ChetanGarg6842/Flea_Mart.git'
     //        }
     //    }
       stage('SonarQube analysis') {
         steps {
             withSonarQubeEnv('SonarQube') {
+            sh 'sonar-scanner'
       // start the SonarQube container
       sh 'docker run --rm -it -p sonarqube -p 9001:9001 -p 9092:9092 sonarqube'
       
