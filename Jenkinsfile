@@ -65,7 +65,7 @@ pipeline {
     }
     
     environment {
-        SONARQUBE_URL = 'http://sonarqube.example.com:9001'
+        SONARQUBE_URL = 'http://http://34.123.82.122:9001'
         SONARQUBE_LOGIN = credentials('sonarqube-login')
     }
     
