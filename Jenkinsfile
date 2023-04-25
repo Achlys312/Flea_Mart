@@ -36,7 +36,7 @@ pipeline {
   }
 }
 
-  }
+
   post {
     always {
       // clean up workspace
@@ -51,6 +51,7 @@ pipeline {
       echo 'SonarQube analysis failed!'
     }
   }
+}
 }
         
       //  stage('Test') {
