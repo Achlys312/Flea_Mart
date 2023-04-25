@@ -57,7 +57,7 @@ pipeline {
          //   steps {
            //     sh 'docker build -f $DOCKERFILE_PATH -t $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME .'
           //  }
-        }
+       // }
 
         // stage('Push') {
            // steps {
