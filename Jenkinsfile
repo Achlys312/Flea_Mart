@@ -45,12 +45,13 @@ pipeline {
         
         stage('Deploy') {
             steps {
-                sh 'docker pull $DOCKER_USER/$DOCKER_IMAGE_NAME:latest'
                 sh 'docker run -d --name $DOCKER_IMAGE_NAME -p 8000:8000 $DOCKER_IMAGE_NAME'
             }
         }
     }
 }
+
+
 //         stage('Monitor') {
 //             steps {
 //                 sh 'pip install prometheus-flask-exporter'
