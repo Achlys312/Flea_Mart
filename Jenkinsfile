@@ -101,8 +101,6 @@ pipeline {
          //   }
        // }
 
-    }
-}
 
 
 //         stage('Monitor') {
