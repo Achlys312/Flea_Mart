@@ -21,7 +21,7 @@ pipeline {
         steps {
             withSonarQubeEnv('SonarQube') {
       // start the SonarQube container
-      sh 'docker run -d --rm --name sonarqube -p 9001:9001 -p 9092:9092 sonarqube'
+      sh 'docker run --rm -it -p sonarqube -p 9001:9001 -p 9092:9092 sonarqube'
       
       // wait for SonarQube to start up
       sh 'sleep 30'
