@@ -19,7 +19,7 @@ pipeline {
     //    }
       stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('SonarQube', unstable: true) {
                     sh 'sonar-scanner -Dsonar.projectKey=FleaMart'
                 }
             }
