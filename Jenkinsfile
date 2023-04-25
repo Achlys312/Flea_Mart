@@ -45,6 +45,7 @@ pipeline {
         
         stage('Deploy') {
             steps {
+                sh "docker pull kartikdhoundiyal/my-django-app:latest"
                 sh "docker run -d --name $DOCKER_IMAGE_NAME -p 8000:8000 $DOCKER_IMAGE_NAME"
             }
         }
