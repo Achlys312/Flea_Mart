@@ -17,15 +17,24 @@ pipeline {
     //            git 'https://github.com/Kartik-Dhoundiyal/Flea_Mart.git'
     //        }
     //    }
-        stage('SonarQube analysis') {
-      steps {
-        withSonarQubeEnv('SonarQube') {
-          sh 'mvn sonar:sonar'
-           sh 'sonar-scanner'
-            sh 'docker run -d --name sonarqube -p 9001:9001 sonarqube'
-        }
-      }
+      stage('SonarQube analysis') {
+        steps {
+            withSonarQubeEnv('SonarQube') {
+      // start the SonarQube container
+      sh 'docker run -d --rm --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube'
+      
+      // wait for SonarQube to start up
+      sh 'sleep 30'
+      
+      // run the SonarQube scanner for your project
+      sh 'mvn sonar:sonar'
+      
+      // stop the SonarQube container
+      sh 'docker stop sonarqube'
     }
+  }
+}
+
   }
   post {
     always {
