@@ -20,7 +20,7 @@ pipeline {
         stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh './gradlew sonarqube'
+                    sh 'sonar-scanner'
                     sh 'docker run -d --name sonarqube -p 9001:9001 sonarqube'
                 }
             }
