@@ -18,13 +18,30 @@ pipeline {
     //        }
     //    }
         stage('SonarQube analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh 'sonar-scanner'
-                    sh 'docker run -d --name sonarqube -p 9001:9001 sonarqube'
-                }
-            }
+      steps {
+        withSonarQubeEnv('SonarQube') {
+          sh 'mvn sonar:sonar'
+           sh 'sonar-scanner'
+            sh 'docker run -d --name sonarqube -p 9001:9001 sonarqube'
         }
+      }
+    }
+  }
+  post {
+    always {
+      // clean up workspace
+      cleanWs()
+    }
+    success {
+      // print success message
+      echo 'SonarQube analysis succeeded!'
+    }
+    failure {
+      // print failure message
+      echo 'SonarQube analysis failed!'
+    }
+  }
+}
         
       //  stage('Test') {
         //    steps {
