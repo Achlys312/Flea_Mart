@@ -1,14 +1,14 @@
 pipeline {
-    // agent any
+    agent any
 
-    // environment {
-    //     DOCKER_IMAGE_NAME = "flea_mart-app"
-    //     DOCKER_USER = "kartikdhoundiyal"
-    //     DOCKERFILE_PATH = "./Dockerfile"
-    //     DOCKER_REGISTRY = "docker.io"
-    //     DOCKER_REGISTRY_CREDENTIALS = "docker_cred"
-    //     PROMETHEUS_PORT = 9090
-    // }
+    environment {
+        DOCKER_IMAGE_NAME = "flea_mart-app"
+        DOCKER_USER = "kartikdhoundiyal"
+        DOCKERFILE_PATH = "./Dockerfile"
+        DOCKER_REGISTRY = "docker.io"
+        DOCKER_REGISTRY_CREDENTIALS = "docker_cred"
+        PROMETHEUS_PORT = 9090
+    }
 
     stages {
         
