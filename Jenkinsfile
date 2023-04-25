@@ -77,6 +77,7 @@ pipeline {
         string(name: 'SONAR_PROJECT_KEY', defaultValue: 'FleaMart', description: 'The project key for the SonarQube analysis.')
     }
 }
+
       //  stage('Test') {
         //    steps {
              // Build the Docker image
