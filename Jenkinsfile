@@ -11,19 +11,35 @@ pipeline {
     }
 
     stages {
-        stage('Code Analysis') {
-    steps {
-        withFortifyStaticCodeAnalyzer(credentialsId: 'my-fortify-credentials') {
-            sh 'sourceanalyzer -b Flea_Mart -scan -f Flea_Mart.fpr Flea_Mart/src/*.py'
-            fortifySSCUpload(uploadFpr: 'Flea_Mart.fpr', credentialsId: 'my-fortify-credentials', applicationVersion: '1.0', applicationName: 'Flea_Mart', fortifyServerUrl: 'http://fortify-server:8080/ssc')
-            fortifySSCAnalysisAndWait(credentialsId: 'my-fortify-credentials', applicationName: 'Flea_Mart', applicationVersion: '1.0', fortifyServerUrl: 'http://fortify-server:8080/ssc')
+     pipeline {
+  agent any
+  
+  stages {
+    stage('Code Analysis') {
+      steps {
+        withCredentials([string(credentialsId: 'code-climate-token', variable: 'CC_TOKEN')]) {
+          sh 'curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter'
+          sh 'chmod +x ./cc-test-reporter'
+          sh './cc-test-reporter before-build'
+          sh 'pip install -r requirements.txt'
+          sh 'codeclimate analyze -e pylint'
+          sh './cc-test-reporter after-build --exit-code $PIPELINE_STAGE_RESULT'
         }
+      }
     }
+    // ... other stages
+  }
+  
+  post {
+    always {
+      deleteDir()
+    }
+  }
 }
+    
 
 
-        }
-    }
+        }   }
         
     //    stage('Checkout') {
     //        steps {
