@@ -11,6 +11,24 @@ pipeline {
     }
 
     stages {
+        stage('Code Analysis') {
+    steps {
+        withFortifySCA() {
+            stage('Code Analysis') {
+    steps {
+        withFortifySCA() {
+            sh 'sourceanalyzer -b Flea_Mart -scan -f Flea_Mart.fpr Flea_Mart/src/*.py'
+            sh 'fortifyclient uploadFPR -f Flea_Mart.fpr -url http://fortify-server:8080/ssc -authtoken <your-auth-token>'
+            sh 'fortifyclient -url http://fortify-server:8080/ssc -authtoken <your-auth-token> -project "Flea_Mart" -version "1.0" -action ANALYZE'
+        }
+    }
+}
+
+        }
+    }
+}
+    }
+}
         
     //    stage('Checkout') {
     //        steps {
@@ -41,41 +59,41 @@ pipeline {
     // }
     
 
-     stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube', unstable: true) {
-                    sh 'sonar-scannersh -Dsonar.projectKey=FleaMart'
-                }
-            }
-        }
-    }
+    //  stage('SonarQube Analysis') {
+    //         steps {
+    //             withSonarQubeEnv('SonarQube', unstable: true) {
+    //                 sh 'sonar-scannersh -Dsonar.projectKey=FleaMart'
+    //             }
+    //         }
+    //     }
+    // }
     
-    post {
-        always {
-            deleteDir()
-        }
+    // post {
+    //     always {
+    //         deleteDir()
+    //     }
         
-        success {
-            echo 'Build successful!'
-        }
+    //     success {
+    //         echo 'Build successful!'
+    //     }
         
-        failure {
-            echo 'Build failed!'
-        }
-    }
+    //     failure {
+    //         echo 'Build failed!'
+    //     }
+    // }
     
-    environment {
-        SONARQUBE_URL = 'http://34.123.82.122:9001'
-        SONARQUBE_LOGIN = credentials('sonarqube-login')
-    }
+    // environment {
+    //     SONARQUBE_URL = 'http://34.123.82.122:9001'
+    //     SONARQUBE_LOGIN = credentials('sonarqube-login')
+    // }
     
-    options {
-        timeout(time: 1, unit: 'HOURS')
-    }
+    // options {
+    //     timeout(time: 1, unit: 'HOURS')
+    // }
     
-    parameters {
-        string(name: 'SONAR_PROJECT_KEY', defaultValue: 'FleaMart', description: 'The project key for the SonarQube analysis.')
-    }
+    // parameters {
+    //     string(name: 'SONAR_PROJECT_KEY', defaultValue: 'FleaMart', description: 'The project key for the SonarQube analysis.')
+    // }
 }
 
       //  stage('Test') {
