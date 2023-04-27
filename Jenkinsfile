@@ -116,7 +116,8 @@ pipeline {
                 sh 'docker run --rm -p 8000:8000 my-django-app-test '
             }
         }
-}   }
+}
+ }
        // stage('Build') {
          //   steps {
            //     sh 'docker build -f $DOCKERFILE_PATH -t $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME .'
