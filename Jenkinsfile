@@ -11,7 +11,19 @@ pipeline {
     }
 
     stages {
-//      pipeline {
+
+        stage('Test') {
+            steps {
+              //Build the Docker image
+               sh 'docker build -t my-django-app-test . -f Dockerfile.test'
+        
+            // Run the tests inside a Docker container.
+                sh 'docker run --rm -p 8000:8000 my-django-app-test '
+            }
+        }
+}
+ }
+ //      pipeline {
 //   agent any
   
 //   stages {
@@ -107,17 +119,6 @@ pipeline {
     // }
 //}
 
-        stage('Test') {
-            steps {
-              Build the Docker image
-               sh 'docker build -t my-django-app-test . -f Dockerfile.test'
-        
-              Run the tests inside a Docker container.
-                sh 'docker run --rm -p 8000:8000 my-django-app-test '
-            }
-        }
-}
- }
        // stage('Build') {
          //   steps {
            //     sh 'docker build -f $DOCKERFILE_PATH -t $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME .'
