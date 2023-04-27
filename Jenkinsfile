@@ -21,14 +21,7 @@ pipeline {
       flakyTestPublisher()
     }
   }
-}
-  
-  post {
-    always {
-      deleteDir()
-    }
-  }
-        
+}    
     //    stage('Checkout') {
     //        steps {
     //            git 'https://github.com/ChetanGarg6842/Flea_Mart.git'
