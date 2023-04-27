@@ -11,35 +11,35 @@ pipeline {
     }
 
     stages {
-     pipeline {
-  agent any
+//      pipeline {
+//   agent any
   
-  stages {
-    stage('Code Analysis') {
-      steps {
-        withCredentials([string(credentialsId: 'code-climate-token', variable: 'CC_TOKEN')]) {
-          sh 'curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter'
-          sh 'chmod +x ./cc-test-reporter'
-          sh './cc-test-reporter before-build'
-          sh 'pip install -r requirements.txt'
-          sh 'codeclimate analyze -e pylint'
-          sh './cc-test-reporter after-build --exit-code $PIPELINE_STAGE_RESULT'
-        }
-      }
-    }
-    // ... other stages
-  }
+//   stages {
+//     stage('Code Analysis') {
+//       steps {
+//         withCredentials([string(credentialsId: 'code-climate-token', variable: 'CC_TOKEN')]) {
+//           sh 'curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter'
+//           sh 'chmod +x ./cc-test-reporter'
+//           sh './cc-test-reporter before-build'
+//           sh 'pip install -r requirements.txt'
+//           sh 'codeclimate analyze -e pylint'
+//           sh './cc-test-reporter after-build --exit-code $PIPELINE_STAGE_RESULT'
+//         }
+//       }
+//     }
+//     // ... other stages
+//   }
   
-  post {
-    always {
-      deleteDir()
-    }
-  }
-}
+//   post {
+//     always {
+//       deleteDir()
+//     }
+//   }
+// }
     
 
 
-        }   }
+        
         
     //    stage('Checkout') {
     //        steps {
@@ -116,7 +116,7 @@ pipeline {
                 sh 'docker run --rm -p 8000:8000 my-django-app-test '
             }
         }
-
+}   }
        // stage('Build') {
          //   steps {
            //     sh 'docker build -f $DOCKERFILE_PATH -t $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME .'
