@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
-from item .models import Item
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404
+
+from item.models import Item
 
 @login_required
 def index(request):
@@ -9,8 +10,3 @@ def index(request):
     return render(request, 'dashboard/index.html', {
         'items': items,
     })
-
-@login_required
-def delete(request, pk):
-    item = get_object_or_404(Item, pk=pk, created_by=request.user)
-    item.delete()
