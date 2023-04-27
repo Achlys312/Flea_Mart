@@ -9,19 +9,38 @@ pipeline {
         DOCKER_REGISTRY_CREDENTIALS = "docker_cred"
         PROMETHEUS_PORT = 9090
     }
+
+    stages {
+     pipeline {
+  agent any
+  
   stages {
-    stage('Test') {
+    stage('Code Analysis') {
       steps {
-        sh 'python3 manage.py test'
+        withCredentials([string(credentialsId: 'code-climate-token', variable: 'CC_TOKEN')]) {
+          sh 'curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter'
+          sh 'chmod +x ./cc-test-reporter'
+          sh './cc-test-reporter before-build'
+          sh 'pip install -r requirements.txt'
+          sh 'codeclimate analyze -e pylint'
+          sh './cc-test-reporter after-build --exit-code $PIPELINE_STAGE_RESULT'
+        }
       }
     }
+    // ... other stages
   }
+  
   post {
     always {
-      flakyTestPublisher()
+      deleteDir()
     }
   }
-}    
+}
+    
+
+
+        }   }
+        
     //    stage('Checkout') {
     //        steps {
     //            git 'https://github.com/ChetanGarg6842/Flea_Mart.git'
@@ -88,15 +107,15 @@ pipeline {
     // }
 //}
 
-      //  stage('Test') {
-        //    steps {
-             // Build the Docker image
-          //      sh 'docker build -t my-django-app-test . -f Dockerfile.test'
+        stage('Test') {
+            steps {
+              Build the Docker image
+               sh 'docker build -t my-django-app-test . -f Dockerfile.test'
         
-             // Run the tests inside a Docker container.
-                //sh 'docker run --rm -p 8000:8000 my-django-app-test '
-         //   }
-       // }
+              Run the tests inside a Docker container.
+                sh 'docker run --rm -p 8000:8000 my-django-app-test '
+            }
+        }
 
        // stage('Build') {
          //   steps {
