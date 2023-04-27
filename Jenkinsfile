@@ -13,22 +13,17 @@ pipeline {
     stages {
         stage('Code Analysis') {
     steps {
-        withFortifySCA() {
-            stage('Code Analysis') {
-    steps {
-        withFortifySCA() {
+        withFortifyStaticCodeAnalyzer(credentialsId: 'my-fortify-credentials') {
             sh 'sourceanalyzer -b Flea_Mart -scan -f Flea_Mart.fpr Flea_Mart/src/*.py'
-            sh 'fortifyclient uploadFPR -f Flea_Mart.fpr -url http://fortify-server:8080/ssc -authtoken <your-auth-token>'
-            sh 'fortifyclient -url http://fortify-server:8080/ssc -authtoken <your-auth-token> -project "Flea_Mart" -version "1.0" -action ANALYZE'
+            fortifySSCUpload(uploadFpr: 'Flea_Mart.fpr', credentialsId: 'my-fortify-credentials', applicationVersion: '1.0', applicationName: 'Flea_Mart', fortifyServerUrl: 'http://fortify-server:8080/ssc')
+            fortifySSCAnalysisAndWait(credentialsId: 'my-fortify-credentials', applicationName: 'Flea_Mart', applicationVersion: '1.0', fortifyServerUrl: 'http://fortify-server:8080/ssc')
         }
     }
 }
 
+
         }
     }
-}
-    }
-}
         
     //    stage('Checkout') {
     //        steps {
