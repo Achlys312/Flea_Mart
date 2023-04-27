@@ -9,37 +9,25 @@ pipeline {
         DOCKER_REGISTRY_CREDENTIALS = "docker_cred"
         PROMETHEUS_PORT = 9090
     }
-
-    stages {
-     pipeline {
-  agent any
-  
   stages {
-    stage('Code Analysis') {
+    stage('Test') {
       steps {
-        withCredentials([string(credentialsId: 'code-climate-token', variable: 'CC_TOKEN')]) {
-          sh 'curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter'
-          sh 'chmod +x ./cc-test-reporter'
-          sh './cc-test-reporter before-build'
-          sh 'pip install -r requirements.txt'
-          sh 'codeclimate analyze -e pylint'
-          sh './cc-test-reporter after-build --exit-code $PIPELINE_STAGE_RESULT'
-        }
+        sh 'python manage.py test'
       }
     }
-    // ... other stages
   }
+  post {
+    always {
+      flakyTestPublisher()
+    }
+  }
+}
   
   post {
     always {
       deleteDir()
     }
   }
-}
-    
-
-
-        }   }
         
     //    stage('Checkout') {
     //        steps {
