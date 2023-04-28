@@ -1,4 +1,5 @@
 # from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
@@ -26,7 +27,7 @@ finally:
 # driver = webdriver.Chrome(ChromeDriverManager().install())
 
 # Visit the home page of the Django app
-driver.get("http://localhost:8000/")
+# driver.get("http://localhost:8000/")
 
 uzu = "kndndsdsdh9012"
 
