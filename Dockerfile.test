@@ -6,16 +6,16 @@ RUN apt-get update && \
     apt-get install -y python3-pip && \
     pip3 install --upgrade pip
 
-# Install Chrome
-RUN apt install curl dpkg unzip -y
-RUN apt-get update 
-RUN apt upgrade -y
+# # Install Chrome
+# RUN apt install curl dpkg unzip -y
+# RUN apt-get update 
+# RUN apt upgrade -y
 
-RUN curl -LO "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-RUN ar x google-chrome-stable_current_amd64.deb
-RUN tar -xf control.tar.xz
-RUN apt-get -f install -y
-RUN tar -xf data.tar.xz -C /
+# RUN curl -LO "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+# RUN ar x google-chrome-stable_current_amd64.deb
+# RUN tar -xf control.tar.xz
+# RUN apt-get -f install -y
+# RUN tar -xf data.tar.xz -C /
 
 # Copy the Django project files
 COPY . .
