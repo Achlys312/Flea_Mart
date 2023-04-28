@@ -1,5 +1,5 @@
 # Use the official Python image as the base image.
-FROM python:3.9-slim-buster
+FROM ubuntu:22.04
 
 #upgrading and Installing pip 
 RUN apt-get update && \
