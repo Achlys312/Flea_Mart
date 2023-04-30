@@ -11,21 +11,13 @@ pipeline {
     }
 
     stages {
-        
-    //    stage('Checkout') {
-    //        steps {
-    //            git 'https://github.com/Kartik-Dhoundiyal/Flea_Mart.git'
-    //        }
-    //    }
-        
-
         stage('Test') {
             steps {
              // Build the Docker image
                 sh 'docker build -t my-django-app-test . -f Dockerfile.test'
         
              // Run the tests inside a Docker container.
-                //sh 'docker run --rm -p 8000:8000 my-django-app-test '
+                sh 'docker run --rm -p 8000:8000 my-django-app-test '
             }
         }
 
@@ -50,32 +42,32 @@ pipeline {
             }
         }
 
-        // stage('Monitor') {
-        //     steps {
-        //         // Install Prometheus exporters and Python dependencies
-        //         sh 'pip install prometheus_client'
-        //         sh 'pip install requests'
+        stage('Monitor') {
+            steps {
+                // Install Prometheus exporters and Python dependencies.
+                sh 'pip install prometheus_client'
+                sh 'pip install requests'
 
-        //         // Start the Prometheus server
-        //         sh 'docker run -d --name prometheus -p 9090:9090 prom/prometheus'
+                // Start the Prometheus server
+                sh 'docker run -d --name prometheus -p 9090:9090 prom/prometheus'
 
-        //         // Start the Django app with gunicorn
-        //         sh 'pip install gunicorn'
-        //         sh 'gunicorn myapp.wsgi:application -b 0.0.0.0:8000 -w 4 &'
+                // Start the Django app with gunicorn
+                sh 'pip install gunicorn'
+                sh 'gunicorn app.puddle.wsgi:application -b 0.0.0.0:8000 -w 4 &'
 
-        //         // Wait for the Django app to start up
-        //         sh 'sleep 10'
+                // Wait for the Django app to start up
+                sh 'sleep 10'
 
-        //         // Expose metrics from the Django app using a Prometheus client
-        //         sh 'python prometheus.py &'
+                // Expose metrics from the Django app using a Prometheus client
+                sh 'python prometheus.py &'
 
-        //         // Add the Django app to Prometheus configuration
-        //         sh 'echo "  - targets: [\'django-app:8000\']" >> /etc/prometheus/prometheus.yml'
+                // Add the Django app to Prometheus configuration
+                sh 'echo "  - targets: [\'django-app:8000\']" >> /etc/prometheus/prometheus.yml'
 
-        //         // Restart Prometheus to pick up the new configuration
-        //         sh 'docker restart prometheus'
-        //     }
-        // }
+                // Restart Prometheus to pick up the new configuration
+                sh 'docker restart prometheus'
+            }
+        }
 
     }
 }

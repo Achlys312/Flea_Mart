@@ -1,15 +1,33 @@
-# import time
 # from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
-driver = webdriver.Chrome(ChromeDriverManager().install())
-# Create a new browser window
-# driver = webdriver.Chrome(executable_path="./chromedriver")
+# Create Chrome options and set headless mode
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+
+# Instantiate Chrome WebDriver
+try:
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+except Exception as e:
+    print("Error: ", e)
+    driver.quit()
 
 # Visit the home page of the Django app
-driver.get("http://localhost:8000/")
+try:
+    driver.get("http://localhost:8000/")
+    # Do something with the page
+except Exception as e:
+    print("Error: ", e)
+finally:
+    driver.quit()
+    
+# driver = webdriver.Chrome(ChromeDriverManager().install())
+
+# Visit the home page of the Django app
+# driver.get("http://localhost:8000/")
 
 uzu = "kndndsdsdh9012"
 
