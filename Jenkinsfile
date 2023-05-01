@@ -51,18 +51,12 @@ pipeline {
                 // Start the Prometheus server
                 sh 'docker run -d --name prometheus -p 9090:9090 prom/prometheus'
 
-                // Start the Django app with gunicorn
-                sh 'pip install gunicorn'
-                sh 'gunicorn app.puddle.wsgi:application -b 0.0.0.0:8000 -w 4 &'
-
-                // Wait for the Django app to start up
-                sh 'sleep 10'
-
                 // Expose metrics from the Django app using a Prometheus client
                 sh 'python prometheus.py &'
 
                 // Add the Django app to Prometheus configuration
-                sh 'echo "  - targets: [\'django-app:8000\']" >> /etc/prometheus/prometheus.yml'
+                sh 'mkdir -p /etc/prometheus'
+                sh 'echo "  - targets: [\'35.213.157.167:8000\']" >> /etc/prometheus/prometheus.yml'
 
                 // Restart Prometheus to pick up the new configuration
                 sh 'docker restart prometheus'
