@@ -54,7 +54,7 @@ pipeline {
                 // Expose metrics from the Django app using a Prometheus client
                 sh 'python prometheus.py &'
 
-                // Add the Django app to Prometheus configuration.
+                // Add the Django app to Prometheus configuration
                 // sh 'mkdir -p /etc/prometheus'
                 sh 'echo "  - targets: [\'35.213.157.167:8000\']" >> prometheus.yml'
 
