@@ -15,7 +15,7 @@ RUN pip3 install -r requirements.txt
 
 # Expose port 8000 for the Django development server
 EXPOSE 8000
-# Configuring Prometheous.
+# Configuring Prometheous
 
 # Run the Django development server
 ENTRYPOINT python3 app/manage.py runserver 0.0.0.0:8000
