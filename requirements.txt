@@ -1,8 +1,7 @@
-Django
+Django==3.2.4
+django-prometheus==2.3.0
+prometheus-client==0.11.0
 Pillow
 selenium
 webdriver_manager
-gunicorn
 pylint
-prometheus-client==0.11.0
-django-prometheus==2.1.0
