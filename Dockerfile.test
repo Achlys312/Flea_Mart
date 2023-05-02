@@ -6,46 +6,12 @@ RUN apt-get update && \
     apt-get install -y python3-pip && \
     pip3 install --upgrade pip
 
-RUN apt-get update && apt-get install -y \
-    wget \
-    gnupg \
-    unzip \
-    libglib2.0-0 \
-    libnss3 \
-    libxi6 \
-    libgconf-2-4 \
-    libxss1 \
-    libasound2 \
-    libxtst6 \
-    libatk-bridge2.0-0 \
-    libgtk-3-0 \
-    libgbm-dev \
-    libdrm-dev \
-    libcairo-gobject2 \
-    libpulse0
-
-RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
-RUN echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
-RUN apt-get update && apt-get install -y google-chrome-stable
-
-RUN wget -q https://chromedriver.storage.googleapis.com/95.0.4638.54/chromedriver_linux64.zip -O /tmp/chromedriver.zip && \
-    unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/ && \
-    chmod +x /usr/local/bin/chromedriver
-
-# # Install Chrome
-# RUN apt install curl dpkg unzip -y
-# RUN apt-get update 
-# RUN apt upgrade -y
-
-# RUN curl -LO "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-# RUN ar x google-chrome-stable_current_amd64.deb
-# RUN tar -xf control.tar.xz
-# RUN apt-get -f install -y
-# RUN tar -xf data.tar.xz -C /
+RUN apt-get update && apt-get install -y 
 
 # Copy the Django project files
 COPY . .
 
+RUN pip3 install django-prometheus
 # Install the dependencies
 RUN pip3 install -r requirements.txt
 
@@ -53,13 +19,10 @@ RUN pip3 install -r requirements.txt
 # Run any migrations
 RUN python3 app/manage.py migrate
 
-# Expose port 8000 for the Django development server
+# Expose port 8000 for the Django development server.
 EXPOSE 8000
 
 # # Set the entrypoint to run the tests
 RUN chmod +x test_entrypoint.sh
 
 ENTRYPOINT ["./test_entrypoint.sh"]
-CMD ["/bin/bash"]
-
-# ENTRYPOINT python3 app/manage.py runserver 
