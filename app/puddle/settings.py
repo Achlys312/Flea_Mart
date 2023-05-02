@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-from prometheus_client import CollectorRegistry
-from prometheus_client import PrometheusMetricsMiddleware
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
