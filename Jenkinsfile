@@ -52,7 +52,7 @@ pipeline {
                 sh 'docker run -d --name prometheus -p 9090:9090 prom/prometheus'
 
                 // Add the Django app to Prometheus configuration
-                sh 'sudo echo "  - targets: [\'http://52.152.160.179:8000\']" >> /prometheus.yml'
+                // sh 'sudo echo "  - targets: [\'http://52.152.160.179:8000\']" >> /prometheus.yml'
 
                 // Restart Prometheus to pick up the new configuration
                 sh 'docker restart prometheus'
