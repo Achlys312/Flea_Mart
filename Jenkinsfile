@@ -49,14 +49,14 @@ pipeline {
                 sh 'pip install requests'
 
                 // Start the Prometheus server
-                sh 'docker run -d --name prometheus -p 9090:9090 prom/prometheus'
+                sh 'docker run -d --name prometheus -p 9091:9091 prom/prometheus'
 
                 // Expose metrics from the Django app using a Prometheus client
                 sh 'python prometheus.py &'
 
                 // Add the Django app to Prometheus configuration
                 // sh 'mkdir -p /etc/prometheus'
-                sh 'echo "  - targets: [\'35.213.157.167:8000\']" >> prometheus.yml'
+                sh 'echo "  - targets: [\'http://52.152.160.179/:8000\']" >> prometheus.yml'
 
 
                 // Restart Prometheus to pick up the new configuration
