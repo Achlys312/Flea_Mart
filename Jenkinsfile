@@ -36,11 +36,11 @@ pipeline {
             }
         }
         
-        // stage('Deploy') {
-        //     steps {
-        //         sh 'docker run -d --name $DOCKER_IMAGE_NAME -p 8000:8000 $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME'
-        //     }
-        // }
+        stage('Deploy') {
+            steps {
+                sh 'docker run -d --name $DOCKER_IMAGE_NAME -p 8000:8000 $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME'
+            }
+        }
 
         stage('Monitor') {
             steps {
@@ -50,13 +50,7 @@ pipeline {
 
                 // Start the Prometheus server
                 sh 'docker run -d --name prometheus -p 9090:9090 prom/prometheus'
-
-                // Start the Prometheus exporter for the Django app
-                sh 'python manage.py prometheus_export'
-
-                // Wait for the Django app to start up
-                sh 'sleep 10'
-
+                
                 // Add the Django app to Prometheus configuration
                 sh 'echo "  - targets: [\'http://52.152.160.179:8000\']" >> /etc/prometheus/prometheus.yml'
 
