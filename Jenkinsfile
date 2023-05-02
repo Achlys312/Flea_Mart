@@ -38,7 +38,7 @@ pipeline {
         
         stage('Deploy') {
             steps {
-                sh 'docker run -d --name $DOCKER_IMAGE_NAME -p 8000:8000 $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME' -e PROMETHEUS_MULTIPROC_DIR=/prometheus -v /prometheus:/prometheus my-django-app'
+                sh 'docker run -d --name $DOCKER_IMAGE_NAME -p 8000:8000 $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME -e PROMETHEUS_MULTIPROC_DIR=/prometheus -v /prometheus:/prometheus my-django-app'
             }
         }
 
@@ -61,6 +61,5 @@ pipeline {
                 sh 'curl -X POST -H "Content-Type: application/json" -d \'{"name":"prometheus","type":"prometheus","url":"http://prometheus:9090","access":"proxy","isDefault":true}\' http://admin:admin@localhost:3000/api/datasources'
             }
         }
-
     }
 }
