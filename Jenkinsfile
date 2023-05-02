@@ -25,7 +25,6 @@ pipeline {
 
              // Run the tests inside a Docker container.
 
-                sh 'docker run --rm -p 8000:8000 my-django-app-test '
             }
         }
 }
@@ -161,14 +160,25 @@ pipeline {
 
         stage('Monitor') {
             steps {
-                // Install Prometheus exporters and Python dependencies.
+                // Install Prometheus exporters
+                sh 'pip install prometheus-flask-exporter'
                 sh 'pip install prometheus_client'
-                sh 'pip install requests'
 
 
                 // Start the Prometheus server
             //    sh 'docker run -d --name prometheus -p 9090:9090 prom/prometheus'
 
+
+                // Add the Django app to Prometheus configuration
+                // sh 'sudo echo "  - targets: [\'http://52.152.160.179:8000\']" >> /prometheus.yml'
+
+                // Restart Prometheus to pick up the new configuration
+                sh 'docker restart prometheus'
+            }
+        }
+    }
+}
+=======
                 // Start the Django app with gunicorn
 
              //   sh 'pip install gunicorn'
@@ -229,3 +239,4 @@ pipeline {
 //                 sh 'docker restart prometheus'
 //             }
 //         }
+
