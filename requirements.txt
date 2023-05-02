@@ -4,5 +4,5 @@ selenium
 webdriver_manager
 gunicorn
 pylint
-prometheus-client==0.12.0
+prometheus-client==0.11.0
 django-prometheus==2.1.0
