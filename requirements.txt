@@ -4,4 +4,3 @@ selenium
 webdriver_manager
 gunicorn
 pylint
-prometheus_client
