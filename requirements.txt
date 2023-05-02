@@ -3,3 +3,4 @@ Pillow
 selenium
 webdriver_manager
 gunicorn
+pylint
