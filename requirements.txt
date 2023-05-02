@@ -1,4 +1,6 @@
-Django==4.2
+Django
 Pillow
-selenium==4.8.3
-webdriver_manager==3.8.6
+selenium
+webdriver_manager
+gunicorn
+pylint

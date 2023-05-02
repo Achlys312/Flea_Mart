@@ -1,4 +1,4 @@
-# Use the official Python image as the base image
+# Use the official Python image as the base image.
 FROM ubuntu:22.04
 
 #upgrading and Installing pip 
@@ -9,11 +9,13 @@ RUN apt-get update && \
 # Copy the Django project files
 COPY . .
 
-# Install the dependencies
+# Install the dependencies.
 RUN pip3 install -r requirements.txt
 
 # Expose port 8000 for the Django development server
 EXPOSE 8000
+# Configuring Prometheous.
 
+EXPOSE 9000
 # Run the Django development server
 ENTRYPOINT python3 app/manage.py runserver 0.0.0.0:8000
