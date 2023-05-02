@@ -18,6 +18,5 @@ RUN pip3 install -r requirements.txt
 EXPOSE 8000
 # Configuring Prometheous.
 
-EXPOSE 9090
 # Run the Django development server
 ENTRYPOINT python3 app/manage.py runserver 0.0.0.0:8000
