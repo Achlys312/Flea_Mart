@@ -6,7 +6,7 @@ RUN apt-get update && \
     apt-get install -y python3-pip && \
     pip3 install --upgrade pip 
     
-RUN pip3 install prometheus_client==0.11.0
+RUN pip3 install django-prometheus
 
 
 # Copy the Django project files

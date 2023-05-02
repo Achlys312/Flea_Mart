@@ -1,5 +1,4 @@
 Django
-django-prometheus
 Pillow
 selenium
 webdriver_manager
