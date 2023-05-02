@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'core',
     'dashboard',
     'item',
+    'django_prometheus',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # other middleware
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
+    # other middleware
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 ROOT_URLCONF = 'puddle.urls'
