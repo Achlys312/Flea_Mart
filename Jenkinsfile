@@ -38,7 +38,7 @@ pipeline {
         
         stage('Deploy') {
             steps {
-                sh 'docker run -d --name $DOCKER_IMAGE_NAME -p 8000:8000 $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME'
+                sh 'docker run -d --name $DOCKER_IMAGE_NAME -p 8000:8000 $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME' -e PROMETHEUS_MULTIPROC_DIR=/prometheus -v /prometheus:/prometheus my-django-app'
             }
         }
 
@@ -51,11 +51,14 @@ pipeline {
                 // Start the Prometheus server
                 sh 'docker run -d --name prometheus -p 9090:9090 prom/prometheus'
 
-                // Add the Django app to Prometheus configuration
-                // sh 'echo "  - targets: [\'django-app:8000\']" >> /etc/prometheus/prometheus.yml'
+                // Start the Grafana server
+                sh 'docker run -d --name grafana -p 3000:3000 grafana/grafana'
 
                 // Restart Prometheus to pick up the new configuration
                 sh 'docker restart prometheus'
+
+                // Configure Grafana to use Prometheus as a data source
+                sh 'curl -X POST -H "Content-Type: application/json" -d \'{"name":"prometheus","type":"prometheus","url":"http://prometheus:9090","access":"proxy","isDefault":true}\' http://admin:admin@localhost:3000/api/datasources'
             }
         }
 

@@ -45,7 +45,10 @@ INSTALLED_APPS = [
     'core',
     'dashboard',
     'item',
+    'prometheus_flask_exporter',
 ]
+
+PROMETHEUS_REGISTRY = CollectorRegistry(auto_describe=True)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,7 +58,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    PrometheusMetricsMiddleware.factory(registry=PROMETHEUS_REGISTRY),
 ]
+
+
 
 ROOT_URLCONF = 'puddle.urls'
 
