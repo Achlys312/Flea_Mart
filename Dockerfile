@@ -4,8 +4,9 @@ FROM ubuntu:22.04
 #upgrading and Installing pip 
 RUN apt-get update && \
     apt-get install -y python3-pip && \
-    pip3 install --upgrade pip && \
-    apt-get install prometheus
+    pip3 install --upgrade pip 
+    
+RUN apt-get install prometheus
 
 # Copy the Django project files
 COPY . .
