@@ -7,6 +7,7 @@ RUN apt-get update && \
     pip3 install --upgrade pip 
     
 
+
 # Copy the Django project files
 COPY . .
 

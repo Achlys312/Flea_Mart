@@ -25,6 +25,3 @@ EXPOSE 8000
 RUN chmod +x test_entrypoint.sh
 
 ENTRYPOINT ["./test_entrypoint.sh"]
-CMD ["/bin/bash"]
-
-# ENTRYPOINT python3 app/manage.py runserver 
