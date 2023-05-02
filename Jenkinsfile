@@ -36,36 +36,33 @@ pipeline {
             }
         }
         
-        stage('Deploy') {
-            steps {
-                sh 'docker run -d --name $DOCKER_IMAGE_NAME -p 8000:8000 $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME'
-            }
-        }
+        // stage('Deploy') {
+        //     steps {
+        //         sh 'docker run -d --name $DOCKER_IMAGE_NAME -p 8000:8000 $DOCKER_REGISTRY/$DOCKER_USER/$DOCKER_IMAGE_NAME'
+        //     }
+        // }
 
         stage('Monitor') {
             steps {
-                // Install Prometheus and Prometheus Flask Exporter
-                sh 'apt-get update && apt-get install -y curl'
-                sh 'curl -LO "https://github.com/prometheus/prometheus/releases/download/v2.32.0/prometheus-2.32.0.linux-amd64.tar.gz"'
-                sh 'tar -xzf prometheus-2.32.0.linux-amd64.tar.gz'
-                sh 'rm prometheus-2.32.0.linux-amd64.tar.gz'
-                sh 'cd prometheus-2.32.0.linux-amd64 && ./prometheus &'
+                // Install Prometheus exporters
                 sh 'pip install prometheus-flask-exporter'
+                sh 'pip install prometheus_client'
 
                 // Start the Prometheus server
-                sh 'docker run -d --name prometheus -p 9091:9091 prom/prometheus'
+                sh 'docker run -d --name prometheus -p 9090:9090 prom/prometheus'
 
-                // Expose metrics from the Django app using a Prometheus client
-                sh 'python prometheus.py &'
+                // Start the Prometheus exporter for the Django app
+                sh 'python manage.py prometheus_export'
+
+                // Wait for the Django app to start up
+                sh 'sleep 10'
 
                 // Add the Django app to Prometheus configuration
-                // sh 'mkdir -p /etc/prometheus'
-                sh 'echo "  - targets: [\'http://52.152.160.179:8000\']" >> prometheus-2.32.0.linux-amd64/prometheus.yml'
-                sh 'cd prometheus-2.32.0.linux-amd64 && ./prometheus &'
-                // Verify that Prometheus is scraping metrics from the Django app
-                sh 'curl localhost:9090/metrics | grep django_http_requests_total'
+                sh 'echo "  - targets: [\'http://52.152.160.179:8000\']" >> /etc/prometheus/prometheus.yml'
+
+                // Restart Prometheus to pick up the new configuration
+                sh 'docker restart prometheus'
             }
         }
-
     }
 }
