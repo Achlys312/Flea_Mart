@@ -1,6 +1,4 @@
-Django==4.2
-django-prometheus==2.2.0
-prometheus-client==0.16.0
+Django
 Pillow
 selenium
 webdriver_manager

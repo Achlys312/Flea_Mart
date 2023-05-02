@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y
 # Copy the Django project files
 COPY . .
 
+RUN pip3 install django-prometheus
 # Install the dependencies
 RUN pip3 install -r requirements.txt
 

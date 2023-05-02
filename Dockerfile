@@ -12,6 +12,7 @@ COPY . .
 # Install the dependencies.
 RUN pip3 install -r requirements.txt
 
+RUN pip3 install django-prometheus
 # Expose port 8000 for the Django development server
 EXPOSE 8000
 # Configuring Prometheous

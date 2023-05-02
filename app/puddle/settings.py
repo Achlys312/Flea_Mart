@@ -48,10 +48,8 @@ INSTALLED_APPS = [
     'core',
     'dashboard',
     'item',
-    'prometheus_flask_exporter',
+    'django_prometheus',
 ]
-
-PROMETHEUS_REGISTRY = CollectorRegistry(auto_describe=True)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -61,7 +59,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    PrometheusMetricsMiddleware.factory(registry=PROMETHEUS_REGISTRY),
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 
