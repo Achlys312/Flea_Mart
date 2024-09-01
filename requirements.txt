@@ -1,5 +1,3 @@
-Django
-Pillow
-selenium
-webdriver_manager
-pylint
+Django==5.1
+selenium==4.24.0
+webdriver_manager==4.0.2
